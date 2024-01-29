@@ -14,12 +14,16 @@ const App = () => {
 
     const markTask = (taskId) => {
         const task = tasks.find((task) => task.id === taskId);
-        task.isDone = true;
+        if(task.isDone === true){
+            task.isDone = false;
+        } else {
+            task.isDone = true;
+        }
         setTasks([...tasks]);
     };
     
     const deleteTask = (taskId) => {
-        const index = tasks.findIndex((task) => task._id === taskId);
+        const index = tasks.findIndex((task) => task.id === taskId);
         tasks.splice(index, 1);
         setTasks([...tasks]);
     };
@@ -39,6 +43,8 @@ const App = () => {
             {tasks.map((task) => (
                 <li key={task.id}>
                     {task.isDone ? <strike>{task.description}</strike> : task.description}
+                    <button onClick={() => deleteTask(task.id)}>Eliminar</button>
+                    <button onClick={() => markTask(task.id)}></button>
                 </li>
             ))}
         </div>
